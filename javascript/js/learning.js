@@ -41,11 +41,15 @@ console.group("PRACTICE: Variables and Basic Types");
 //Create another variable named `y`, assign it the value
 //currently held in the variable `x`, and write the value
 //of `y` to the console log
+var y = x;
+console.log("y is", y)
 
 
 //now assign `y` the numeric value 10
 //what does x contain now? Write it to the console
-
+var y = 10;
+console.log("y is", y)
+console.log("x is", x)
 
 console.groupEnd();
 
@@ -78,11 +82,17 @@ console.group("PRACTICE: Strings");
 //with some text, and then create another string `s4`
 //and assign it the concatenation of `s2` and `s3`
 //then write it to the console so you can verify it worked.
+var s2 = "Hola amigo";
+var s3 = "Ay papi";
+var s4 = s2 + " " + s3;
+console.log(s4);
 
 
 //use the `.trim()` method to remove the leading and
 //trailing white space from this string
 var withSpaces = "    trim those spaces!     ";
+withSpaces = withSpaces.trim();
+console.log(withSpaces);
 
 
 console.groupEnd();
@@ -155,10 +165,18 @@ console.group("PRACTICE: Objects");
 //assigning it to a new variable named `course2`
 //use console.log() to view it in the browser console
 
+var course2 = {
+    teacher: "greg hay",
+    dept: "info",
+    numb: 340
+};
+
+console.log(course2);
+
 //now try adding a property named `web site` (with a space)
 //setting it to some string value...it's tricky...
-
-
+ course2["web site"] = "yeeezus";
+ console.log(course2); 
 
 
 console.groupEnd();
@@ -199,11 +217,14 @@ console.group("PRACTICE: Arrays");
 //create another array of playing card suits
 //(clubs, diamonds, hearts, spades)
 
-
+var cards = ["clubs", "diamonds", "hearts", "spades"];
+console.log(cards);
 //then add a new element named "jokers"
 //afer adding it, access it in the array
 //and log it to the console
-
+cards.push("jokers");
+console.log(cards);
+console.log("%s is the item just added", cards[(cards.length - 1)]);
 
 
 console.groupEnd();
@@ -342,7 +363,17 @@ console.group("PRACTICE: Functions");
 //and returns the minimum of the two, or the first argument
 //if they are equal to each other. Then call it a few times
 //with various numbers to test it.
+function smalls(x, y) {
+    if (x <= y) {
+        return x;
+    } else {
+        return y;
+    }  
+}
 
+console.log(smalls(4, 5));
+console.log(smalls(80, 6));
+console.log(smalls(79, 79));
 
 console.groupEnd();
 
@@ -417,7 +448,15 @@ function generateRandomNumbers(howMany, minimum, maximum) {
 }
 
 //>>> your code goes here!
+var IDK = generateRandomNumbers(5, 1, 100);
+console.log(IDK);
+function doubler(h) {
+    return h * 2;
+}
+var doubled = IDK.map(doubler);
+console.log(doubled);
 
+var minimize = IDK.reduce(smalls, doubled[0]);
 
 //now use the .sort() method on a generated array of random
 //numbers to sort them. Note that by default, sort will 
