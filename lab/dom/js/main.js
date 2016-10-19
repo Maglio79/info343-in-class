@@ -6,3 +6,51 @@ var boxOne = document.getElementById('one'),
 	boxFour = document.getElementById('four'),
 	boxFive = document.getElementById('five'),
 	boxSix = document.getElementById('six');
+
+boxOne.addEventListener("click", function() {
+    // console.log("clicked dat shit");
+    boxOne.classList.add("black");
+})
+
+boxTwo.addEventListener("click", function() {
+    // console.log("clicked dat shit");
+    boxTwo.classList.add("fall");
+})
+
+boxThree.addEventListener("mouseover", function() {
+    console.log("in");
+    boxThree.classList.add("white");
+})
+
+boxThree.addEventListener("mouseout", function() {
+    console.log("out");
+	boxThree.classList.remove("white");
+})
+
+boxFour.addEventListener("click", function() {
+    // console.log("out");
+	if (boxFour.classList.contains("fall")) {
+		boxFour.classList.remove("fall");
+		boxFour.classList.add("float");
+	} else if (boxFour.classList.contains("float")) {
+		boxFour.classList.remove("float");
+		boxFour.classList.add("fall");
+	} else {
+		boxFour.classList.add("fall");
+	}
+})
+
+var count = 0;
+
+boxFive.addEventListener("click", function() {
+    // console.log("out");
+	if (count % 2 == 0) {
+		var left = 0
+		var timer = setInterval(function() {
+			boxFive.style.padding = (left + 10) + px;
+			boxFive.style.left
+		}, 3000)
+	} else {
+		clearImmediate(timer);
+	}
+})
