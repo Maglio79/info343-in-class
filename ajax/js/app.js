@@ -9,6 +9,7 @@
 //and q=... (string to search for, which we will get from the user)
 var baseURL = "https://api.spotify.com/v1/search?type=track&q=";
 
+<<<<<<< HEAD
 var queryResults = document.querySelector(".query-results");
 var searchForm = document.querySelector(".search-form");
 var searchInput = searchForm.querySelector("input");
@@ -86,3 +87,5 @@ searchForm.addEventListener("submit", function(evt) {
 
     return false;
 });
+=======
+>>>>>>> 296f64d94320f5782650b2182adaa04e7180bd1a
