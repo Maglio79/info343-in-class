@@ -1,4 +1,5 @@
 import React from 'react';
+//var temp2 = ;
 
 export default class extends React.Component {
 	constructor(props) {
@@ -6,7 +7,6 @@ export default class extends React.Component {
 	}
 
 	render() {		
-		return <p className="center-text">Replace this with your weather display element.</p>;
+		return <p className="center-text">{this.props.dopeData.main.temp}</p>;
 	}
 }
-		
