@@ -46,6 +46,13 @@ export default class extends React.Component {
             <div className="container">
                 <h1>Products View</h1>
                 <p>some nifty products for sale</p>
+                <SearchForm placeholder="name of repo" onSearch = {query => this.handleSearch(query)} />
+                <p>{this.state.data.total_count} repos found</p>
+                <p>
+                    <button className="btn btn-default" onClick=
+                    {() => this.handleNextPage}>Next Page</button>
+                    
+                </p>
                 {totalPages}
                 {movies}
             </div>
