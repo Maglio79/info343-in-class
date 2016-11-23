@@ -25,12 +25,18 @@ var seattleCoords = L.latLng(47.61, -122.33);
 //default zoom level (0-18 for street maps)
 //other map styles may have different zoom ranges
 var defaultZoom = 14;
-
+// array of markes added to map
+var markers = [];
 var map = L.map(mapDiv).setView(seattleCoords, defaultZoom);
 L.tileLayer(osmTiles.url, {
     attribution: osmTiles.attribution
 }).addTo(map);
 
+function clearMarkers() {
+    markers.forEach(function(marker) {
+        map.removeLayer(marker);
+    })
+}
 /**
  * onPosition() is called after a successful geolocation 
  * @param {object} position geolocation position data
@@ -65,6 +71,12 @@ if (navigator && navigator.geolocation) {
     fetchBars(seattleCoords);
 }
 
+map.addEventListener("click", function(event) {
+    //console.log(event);
+    clearMarkers();
+    fetchBars(event.latlng);
+})
+
 /**
  * fetchBars() fetches the nearby bars from our server
  * and plots them on the map
@@ -75,9 +87,39 @@ if (navigator && navigator.geolocation) {
 function fetchBars(latlng) {
     //add a marker for the current location
     var marker = L.marker(latlng).addTo(map);
+    markers.push(marker);
     //pan to our current location
     map.panTo(latlng);
+    var url = "/api/v1/search";
+    url += "?lat=" + latlng.lat;
+    url += "&lng=" + latlng.lng;
 
+    fetch(url) 
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+            data.businesses.forEach(function(rec) {
+                var blatlng = L.latLng(rec.location.coordinate.latitude, rec.location.coordinate.longitude);
+                var marker = L.circleMarker(blatlng).addTo(map);
+                markers.push(marker);
+                var divPopup = document.createElement("div");
+                var h2 = divPopup.appendChild(document.createElement("h2"));
+                h2.textContent = rec.name;
+                var img = divPopup.appendChild(document.createElement("img"));
+                img.src = rec.rating_img_url;
+                img.alt = "rating is " + rec.rating + " stars";
+                var img2 = divPopup.appendChild(document.createElement("img"));
+                img2.src = rec.image_url;
+                img2.alt = "pic of pub";
+
+                marker.bindPopup(divPopup);
+            }) 
+        })
+        .catch(function(err) {
+            console.error(err);
+        })
     //TODO: fetch the nearby bars
     //and add them to the map
 } 
